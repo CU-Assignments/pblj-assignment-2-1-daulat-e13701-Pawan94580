@@ -1,0 +1,88 @@
+import java.util.*;
+
+class Card {
+    private String suit;
+    private String rank;
+
+    public Card(String suit, String rank) {
+        this.suit = suit;
+        this.rank = rank;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
+    }
+}
+
+public class CardCollection {
+    static Collection<Card> cardCollection = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("\n1. Add Card\n2. Find Cards by Suit\n3. Display All Cards\n4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    addCard();
+                    break;
+                case 2:
+                    findCardsBySuit();
+                    break;
+                case 3:
+                    displayAllCards();
+                    break;
+                case 4:
+                    System.out.println("Exiting program.");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    static void addCard() {
+        System.out.print("Enter Card Suit (e.g., Hearts, Diamonds, Clubs, Spades): ");
+        String suit = scanner.nextLine();
+        System.out.print("Enter Card Rank (e.g., Ace, 2, 3, King, Queen, etc.): ");
+        String rank = scanner.nextLine();
+
+        cardCollection.add(new Card(suit, rank));
+        System.out.println("Card added successfully.");
+    }
+
+    static void findCardsBySuit() {
+        System.out.print("Enter Suit to search: ");
+        String suit = scanner.nextLine();
+        boolean found = false;
+
+        for (Card card : cardCollection) {
+            if (card.getSuit().equalsIgnoreCase(suit)) {
+                System.out.println(card);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No cards found in this suit.");
+        }
+    }
+
+    static void displayAllCards() {
+        if (cardCollection.isEmpty()) {
+            System.out.println("No cards in collection.");
+        } else {
+            for (Card card : cardCollection) {
+                System.out.println(card);
+            }
+        }
+    }
+}
